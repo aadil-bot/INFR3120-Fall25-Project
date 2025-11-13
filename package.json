@@ -1,0 +1,29 @@
+{
+  "name": "infr3120-fall-25-project",
+  "version": "1.0.0",
+  "description": "first node program",
+  "keywords": [
+    "Samir",
+    "Aadil",
+    "Sofiyan"
+  ],
+  "homepage": "https://github.com/aadil-bot/INFR3120-Fall25-Project#readme",
+  "bugs": {
+    "url": "https://github.com/aadil-bot/INFR3120-Fall25-Project/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aadil-bot/INFR3120-Fall25-Project.git"
+  },
+  "license": "ISC",
+  "author": "samir, aadil, sofiyan",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.11"
+  }
+}
