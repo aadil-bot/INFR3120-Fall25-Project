@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 // connect to our book model
-let Book = require('../model/book');
+let Book = require('../model/event');
 function requireAuth(req,res,next)
 {
     if(!req.isAuthenticated())
