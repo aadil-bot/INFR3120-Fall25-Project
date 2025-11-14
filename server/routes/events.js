@@ -44,7 +44,7 @@ router.get('/add',async(req,res,next)=>{
 })
 
 
-// POST route for processing the Add Page --> Create Operations
+// POST route for processing the Add Page --> Create Operation
 router.post('/add',async(req,res,next)=>{
     try
     {
