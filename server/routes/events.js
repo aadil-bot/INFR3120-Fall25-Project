@@ -2,35 +2,28 @@ let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 // connect to our book model
-let Book = require('../model/event');
-function requireAuth(req,res,next)
-{
-    if(!req.isAuthenticated())
-    {
-        return res.redirect('/login')
-    }
-    next();
-}
+let eventModel = require('../model/event');
+
 // GET route for displaying the data from DB --> Read Operation
 router.get('/',async(req,res,next)=>{
     try{
-        const BookList = await Book.find();
-        res.render('Books/list',{
-            title:'Books',
-            BookList:BookList,
-            displayName: req.user?req.user.displayName:""
+        const EventList = await Event.find();
+        res.render('Events/list',{
+            title:'Event Planner',
+            EventList: EventList
         })
     }
     catch(err)
     {
         console.log(err);
-        res.render('Books/list',
+        res.render('Events/list',
             {
                 error:'Error on the Server'
             }
         )
     }
 });
+
 // GET route for displaying the Add Page --> Create Operation
 router.get('/add',async(req,res,next)=>{
     try

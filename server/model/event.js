@@ -1,16 +1,16 @@
 let mongoose = require('mongoose')
 
 // create a model class
-let bookModel = mongoose.Schema({
-    name:String,
-    author: String,
-    published:Number,
+let eventSchema = mongoose.Schema({
+    name: String,
+    organizer: String,
+    date: String, 
     description: String,
-    price:Number
+    location: String
 },
 {
-    collection:"books"
+    collection:"events"
 }
 );
 
-module.exports = mongoose.model('Book',bookModel);
+module.exports = mongoose.model('Event', eventModel);
