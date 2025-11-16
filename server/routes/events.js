@@ -1,13 +1,12 @@
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
-// connect to our book model
-let eventModel = require('../model/event');
+let eventModel = require('../model/event'); 
 
 // GET route for displaying the data from DB --> Read Operation
 router.get('/',async(req,res,next)=>{
     try{
-        const EventList = await Event.find();
+        const EventList = await eventModel.find(); 
         res.render('Events/list',{
             title:'Event Planner',
             EventList: EventList
@@ -18,7 +17,9 @@ router.get('/',async(req,res,next)=>{
         console.log(err);
         res.render('Events/list',
             {
-                error:'Error on the Server'
+                title: 'Error',
+                error: 'Error on the Server',
+                EventList: []
             }
         )
     }
@@ -37,7 +38,9 @@ router.get('/add',async(req,res,next)=>{
         console.log(err);
         res.render('Events/list',
             {
-                error:'Error on the Server'
+                title: 'Error',
+                error:'Error on the Server',
+                EventList: []
             }
         )
     }
@@ -47,25 +50,27 @@ router.get('/add',async(req,res,next)=>{
 router.post('/add',async(req,res,next)=>{
     try
     {
-        let newEvent = Event({
+        // You must use 'eventModel' here
+        let newEvent = eventModel({ 
             "name":req.body.name,
             "organizer":req.body.organizer,
             "date":req.body.date,
             "description":req.body.description,
             "location":req.body.location
         })
-        Event.create(newEvent).then(()=>{
+        // And 'eventModel' here
+        eventModel.create(newEvent).then(()=>{ 
             res.redirect('/events')
         });
     }
-
-
      catch(err)
     {
         console.log(err);
         res.render('Events/list',
             {
-                error:'Error on the Server'
+                title: 'Error', 
+                error:'Error on the Server',
+                EventList: [] 
             }
         )
     }
@@ -76,7 +81,8 @@ router.get('/edit/:id',async(req,res,next)=>{
     try
     {
         const id = req.params.id;
-        const eventToEdit = await Event.findById(id);
+        // You must use 'eventModel' here
+        const eventToEdit = await eventModel.findById(id); 
         res.render("Events/edit",
             {
                 title: 'Edit Event',
@@ -95,7 +101,8 @@ router.get('/edit/:id',async(req,res,next)=>{
 router.post('/edit/:id',async(req,res,next)=>{
     try{
         let id = req.params.id;
-        let updateEvent = Event({
+        // You must use 'eventModel' here
+        let updateEvent = eventModel({ 
             "_id":id,
             "name":req.body.name,
             "organizer":req.body.organizer,
@@ -103,7 +110,8 @@ router.post('/edit/:id',async(req,res,next)=>{
             "description":req.body.description,
             "location":req.body.location
         })
-        Event.findByIdAndUpdate(id,updateEvent).then(()=>{
+        // And 'eventModel' here
+        eventModel.findByIdAndUpdate(id,updateEvent).then(()=>{
             res.redirect("/events")
         })
     }
@@ -119,7 +127,8 @@ router.post('/edit/:id',async(req,res,next)=>{
 router.get('/delete/:id',async(req,res,next)=>{
     try{
         let id = req.params.id;
-        Event.deleteOne({_id:id}).then(()=>{
+        // You must use 'eventModel' here
+        eventModel.deleteOne({_id:id}).then(()=>{ 
             res.redirect("/events")
         })
     }

@@ -9,7 +9,7 @@ let eventModel = mongoose.Schema({
     location: String
 },
 {
-    collection:"events"
+    collection:"Events"
 }
 );
 
