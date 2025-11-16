@@ -50,7 +50,6 @@ router.get('/add',async(req,res,next)=>{
 router.post('/add',async(req,res,next)=>{
     try
     {
-        // You must use 'eventModel' here
         let newEvent = eventModel({ 
             "name":req.body.name,
             "organizer":req.body.organizer,
@@ -58,7 +57,6 @@ router.post('/add',async(req,res,next)=>{
             "description":req.body.description,
             "location":req.body.location
         })
-        // And 'eventModel' here
         eventModel.create(newEvent).then(()=>{ 
             res.redirect('/events')
         });
@@ -81,7 +79,6 @@ router.get('/edit/:id',async(req,res,next)=>{
     try
     {
         const id = req.params.id;
-        // You must use 'eventModel' here
         const eventToEdit = await eventModel.findById(id); 
         res.render("Events/edit",
             {
@@ -101,7 +98,6 @@ router.get('/edit/:id',async(req,res,next)=>{
 router.post('/edit/:id',async(req,res,next)=>{
     try{
         let id = req.params.id;
-        // You must use 'eventModel' here
         let updateEvent = eventModel({ 
             "_id":id,
             "name":req.body.name,
@@ -110,7 +106,6 @@ router.post('/edit/:id',async(req,res,next)=>{
             "description":req.body.description,
             "location":req.body.location
         })
-        // And 'eventModel' here
         eventModel.findByIdAndUpdate(id,updateEvent).then(()=>{
             res.redirect("/events")
         })

@@ -1,6 +1,5 @@
 let mongoose = require('mongoose')
 
-// create a model class
 let eventModel = mongoose.Schema({
     name: String,
     organizer: String,
