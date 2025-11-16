@@ -1,7 +1,7 @@
 let mongoose = require('mongoose')
 
 // create a model class
-let eventSchema = mongoose.Schema({
+let eventModel = mongoose.Schema({
     name: String,
     organizer: String,
     date: String, 
@@ -13,4 +13,4 @@ let eventSchema = mongoose.Schema({
 }
 );
 
-module.exports = mongoose.model('Event', eventModel);
+module.exports = mongoose.model('Event',eventModel);

@@ -28,57 +28,59 @@ router.get('/',async(req,res,next)=>{
 router.get('/add',async(req,res,next)=>{
     try
     {
-        res.render('Books/add',{
-            title:'Add Book',
-            displayName: req.user?req.user.displayName:""
+        res.render('Events/add',{
+            title:'Add New Event'
         });
     }
     catch(err)
     {
         console.log(err);
-        res.render('Books/list',
+        res.render('Events/list',
             {
                 error:'Error on the Server'
             }
         )
     }
 })
+
 // POST route for processing the Add Page --> Create Operation
 router.post('/add',async(req,res,next)=>{
     try
     {
-        let newBook = Book({
+        let newEvent = Event({
             "name":req.body.name,
-            "author":req.body.author,
-            "published":req.body.published,
+            "organizer":req.body.organizer,
+            "date":req.body.date,
             "description":req.body.description,
-            "price":req.body.price
+            "location":req.body.location
         })
-        Book.create(newBook).then(()=>{
-            res.redirect('/books')
+        Event.create(newEvent).then(()=>{
+            res.redirect('/events')
         });
     }
+
+
      catch(err)
     {
         console.log(err);
-        res.render('Books/list',
+        res.render('Events/list',
             {
                 error:'Error on the Server'
             }
         )
     }
 })
+
 // GET route for displaying the Edit Page --> Update Operation
 router.get('/edit/:id',async(req,res,next)=>{
     try
     {
         const id = req.params.id;
-        const bookToEdit = await Book.findById(id);
-        res.render("Books/edit",
+        const eventToEdit = await Event.findById(id);
+        res.render("Events/edit",
             {
-                title: 'Edit Book',
-                Book: bookToEdit,
-                displayName: req.user?req.user.displayName:""
+                title: 'Edit Event',
+                Event: eventToEdit
             }
         )
     }
@@ -88,20 +90,21 @@ router.get('/edit/:id',async(req,res,next)=>{
         next(err);
     }
 })
+
 // POST route for processing the Edit Page --> Update Operation
 router.post('/edit/:id',async(req,res,next)=>{
     try{
         let id = req.params.id;
-        let updateBook = Book({
+        let updateEvent = Event({
             "_id":id,
             "name":req.body.name,
-            "author":req.body.author,
-            "published":req.body.published,
+            "organizer":req.body.organizer,
+            "date":req.body.date,
             "description":req.body.description,
-            "price":req.body.price
+            "location":req.body.location
         })
-        Book.findByIdAndUpdate(id,updateBook).then(()=>{
-            res.redirect("/books")
+        Event.findByIdAndUpdate(id,updateEvent).then(()=>{
+            res.redirect("/events")
         })
     }
     catch(err)
@@ -111,12 +114,13 @@ router.post('/edit/:id',async(req,res,next)=>{
     }
 
 })
+
 // GET route to perform Delete Operation
 router.get('/delete/:id',async(req,res,next)=>{
     try{
         let id = req.params.id;
-        Book.deleteOne({_id:id}).then(()=>{
-            res.redirect("/books")
+        Event.deleteOne({_id:id}).then(()=>{
+            res.redirect("/events")
         })
     }
     catch(err)
