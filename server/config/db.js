@@ -1,1 +1,0 @@
-module.exports={"URI":"mongodb+srv://Aadil:V42DE96Kp7F59o3u@cluster0.qzq2pku.mongodb.net/EventPlanner"}
