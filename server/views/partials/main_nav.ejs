@@ -1,41 +1,72 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
+  <div class="container-fluid">
     <a class="navbar-brand" href="/">
-      <img src="/Asset/images/Logo.webp" alt="Logo" height="100">     LogBook
+      <img src="/Asset/images/Logo.webp" alt="Logo" height="100"> LogBook
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Home Link - Always Visible -->
         <li class="nav-item">
-          <% if(title=="Home") { %>
-            <a class="nav-link active" aria-current="page" href="/home"><i class="fa-solid fa-lg fa-house"></i> Home</a>
+          <% if(title == "Home") { %>
+            <a class="nav-link active" aria-current="page" href="/home">
+              <i class="fa-solid fa-lg fa-house"></i> Home
+            </a>
           <% } else { %>
-            <a class="nav-link" aria-current="page" href="/home"><i class="fa-solid fa-lg fa-house"></i> Home</a>
+            <a class="nav-link" href="/home">
+              <i class="fa-solid fa-lg fa-house"></i> Home
+            </a>
           <% } %>
         </li>
+        
+        <!-- Planner Link - Always Visible -->
         <li class="nav-item">
-          <% if(title=="About us") { %>
-            <a class="nav-link active" aria-current="page" href="/about"><i class="fa-solid fa-lg fa-circle-info"></i> About</a>
+          <% if(title == "Event Planner") { %>
+            <a class="nav-link active" aria-current="page" href="/events">
+              <i class="fa-brands fa-lg fa-elementor"></i> Planner
+            </a>
           <% } else { %>
-            <a class="nav-link" aria-current="page" href="/about"><i class="fa-solid fa-lg fa-circle-info"></i> About</a>
+            <a class="nav-link" href="/events">
+              <i class="fa-brands fa-lg fa-elementor"></i> Planner
+            </a>
           <% } %>
         </li>
-        <li class="nav-item">
-          <% if(title=="Products") { %>
-            <a class="nav-link active" aria-current="page" href="/events"><i class="fa-brands fa-lg fa-elementor"></i> Planner</a>
-          <% } else { %>
-            <a class="nav-link" aria-current="page" href="/events"><i class="fa-brands fa-lg fa-elementor"></i> Planner</a>
-          <% } %>
-        </li>
-        <li class="nav-item">
-          <% if(title=="Contact us") { %>
-            <a class="nav-link active" aria-current="page" href="/contact"><i class="fa-solid fa-lg fa-phone"></i> Contact us</a>
-          <% } else { %>
-            <a class="nav-link" aria-current="page" href="/contact"><i class="fa-solid fa-lg fa-phone"></i> Contact us</a>
-          <% } %>
-        </li>
+        
+        <!-- 
+          AUTHENTICATION NAVIGATION LOGIC:
+          - If user is NOT logged in: Show Login and Register links
+          - If user IS logged in: Show Welcome message and Logout link
+        -->
+        
+        <% if(typeof displayName == 'string' && displayName) { %>
+          <!-- USER IS LOGGED IN - Show Welcome and Logout -->
+          <li class="nav-item">
+            <span class="navbar-text text-light me-3">
+              <i class="fas fa-lg fa-user"></i> Welcome, <%= displayName %>
+            </span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">
+              <i class="fas fa-lg fa-sign-out-alt"></i> Logout
+            </a>
+          </li>
+        <% } else { %>
+          <!-- USER IS NOT LOGGED IN - Show Login Link Only -->
+          <li class="nav-item">
+            <% if(title == "Login") { %>
+              <a class="nav-link active" aria-current="page" href="/login">
+                <i class="fas fa-lg fa-sign-in-alt"></i> Login
+              </a>
+            <% } else { %>
+              <a class="nav-link" href="/login">
+                <i class="fas fa-lg fa-sign-in-alt"></i> Login
+              </a>
+            <% } %>
+          </li>
+        <% } %>
+      </ul>
     </div>
   </div>
 </nav>

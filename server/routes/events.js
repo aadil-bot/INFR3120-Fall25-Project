@@ -3,13 +3,24 @@ let router = express.Router();
 let mongoose = require('mongoose');
 let eventModel = require('../model/event'); 
 
+
+
+//protection
+function requireAuth(req, res, next) {
+    if(!req.isAuthenticated()) {
+        return res.redirect('/login');
+    }
+    next();
+}
+
 // GET route for displaying the data from DB --> Read Operation
 router.get('/',async(req,res,next)=>{
     try{
         const EventList = await eventModel.find(); 
         res.render('Events/list',{
             title:'Event Planner',
-            EventList: EventList
+            EventList: EventList,
+            displayName: req.user ? req.user.displayName : ""
         })
     }
     catch(err)
