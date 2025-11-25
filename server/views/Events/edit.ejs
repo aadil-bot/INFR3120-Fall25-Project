@@ -6,56 +6,49 @@
             <h1><%= title %></h1>
             <form class="form" method="post">
                 <div class="form-group">
-                    <label for="nameTextField">Book Title</label>
+                    <label for="nameTextField">Workout Name</label>
                     <input type="text" class="form-control"
                     id="nameTextField"
-                    placeholder="Enter the book title"
+                    placeholder="Enter the event name"
                     name="name" 
-                    value="<%= Book.name%>"
-                    required>
+                    value="<%= Event.name%>" required>
                 </div>
                 <div class="form-group">
-                    <label for="authorTextField">Book Author</label>
+                    <label for="organizerTextField">Event Organizer</label>
                     <input type="text" class="form-control"
-                    id="authorTextField"
-                    placeholder="Enter the book author"
-                    name="author" 
-                    value="<%= Book.author%>"
-                    required>
+                    id="organizerTextField"
+                    placeholder="Enter the event organizer"
+                    name="organizer" 
+                    value="<%= Event.organizer%>" required>
                 </div>
                 <div class="form-group">
-                    <label for="publishedTextField">Year</label>
-                    <input type="text" class="form-control"
-                    id="publishedTextField"
-                    placeholder="Enter the year of book publication"
-                    name="published"
-                    value="<%= Book.published%>" 
-                    required>
+                    <label for="dateTextField"> Date</label>
+                    <input type="date" class="form-control"
+                    id="dateTextField"
+                    placeholder="Select the event date"
+                    name="date"
+                    value="<%= Event.date%>" required>
                 </div>
                 <div class="form-group">
-                    <label for="descriptionTextArea">Book Description</label>
+                    <label for="descriptionTextArea">Event Description</label>
                     <textarea type="text" class="form-control"
                     id="descriptionTextArea"
-                    placeholder="Enter the description of the book"
+                    placeholder="Enter the description of the event"
                     name="description" required>
-                    <%= Book.description%>
-                </textarea>
-                </div>
+<%= Event.description%></textarea> </div>
                 <div class="form-group">
-                    <label for="priceTextField">Book Price</label>
+                    <label for="locationTextField">Event Location</label>
                     <input type="text" class="form-control"
-                    id="priceTextField"
-                    placeholder="Enter the price of the book"
-                    name="price" 
-                    value="<%= Book.price%>"
-                    required>
+                    id="locationTextField"
+                    placeholder="Enter the event location"
+                    name="location" 
+                    value="<%= Event.location%>" required>
                 </div>
                 <br>
                 <button class="btn btn-primary" type="submit">
                     <i class="fas fa-edit"></i> Submit
                 </button>
-                <a href="/books" class="btn btn-warning">
-                    <i class="fas fa-undo"></i> Cancel
+                <a href="/events" class="btn btn-warning"> <i class="fas fa-undo"></i> Cancel
                 </a>
             </form>
         </div>

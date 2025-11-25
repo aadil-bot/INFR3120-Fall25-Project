@@ -1,5 +1,22 @@
 <%- include ./partials/header.ejs %>
 <%- include ./partials/main_nav.ejs %>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %> page</p>
+    <div class="container-fluid bg-light p-5 text-center">
+  <div class="container">
+    <h1 class="display-4">Event Planner</h1>
+    <p class="lead">Organize your events</p>
+    <a class="btn btn-primary btn-lg" href="/events" role="button">
+      <i class="fas fa-calendar-alt"></i> Create New Event
+    </a>
+  </div>
+</div>
+<main class="container p-5">
+
+  <div class="row">
+    <div class="col">
+      <h2>Welcome to the Home Page</h2>
+      <p>LogBook is a website event planning application designed to display the entire process of organizing events, from small personal gatherings to larger professional functions. Unlike simple calendar applications, LogBook focuses on events by providing a dedicated digital "log" for every detail. The application's core functionality is focused on the event object, allowing users to create, read, update, and delete all associated information with ease. When a user is on the site, users are presented with a clear dashboard that lists their active events, acting as their central command center. The "Create New Event" feature immediately guides users into the planning workflow, ensuring a smooth start to any project or event.</p>
+    </div>
+  </div>
+
+</main>
 <%- include ./partials/footer.ejs %>

@@ -11,35 +11,65 @@
             </a>
             
             <br><br>
-            <table class="table table-bordered table-striped table-hover">
-                <tr class="d-flex">
-                   <th class="text-center col-2">Event Name</th>
-                    <th class="text-center col-2">Organizer</th>
-                    <th class="text-center col-2">Date</th>
-                    <th class="col-3">Description</th>
-                    <th class="text-center col-1">Location</th>
-                    <th class="text-center col-1"></th> <th class="text-center col-1"></th> </tr>
+            <% if(typeof displayName == 'string' && displayName) { %>
+<% } %>
 
-                <% for(let count=0; count < EventList.length; count++) { %>
-                    <tr class="d-flex">
-                        <td class="text-center col-2"><%= EventList[count].name %></td>
-                        <td class="text-center col-2"><%= EventList[count].organizer %></td>
-                        <td class="text-center col-2"><%= EventList[count].date %></td>
-                        <td class="col-3"><%= EventList[count].description %></td>
-                        <td class="text-center col-1"><%= EventList[count].location %></td>
-                        <td class="text-center col-1">
-                            <a href="/events/edit/<%= EventList[count]._id%>"
-                            class="btn btn-primary btn-sm">
-                            <i class="fas fa-pencil-alt"></i> Edit
-                        </a></td>
-                        <td class="text-center col-1">
-                            <a href="/events/delete/<%= EventList[count]._id%>"
-                            class="btn btn-danger btn-sm"> 
-                            <i class="fas fa-trash-alt"></i> Delete</a></td>
-                        
-                    </tr>
-                <% } %>
-            </table>
+<br><br>
+<table class="table table-bordered table-striped table-hover">
+    <!-- Show Edit/Delete columns only if logged in -->
+    <% if(typeof displayName == 'string' && displayName) { %>
+        <tr class="d-flex">
+            <th class="text-center col-2">Event Name</th>
+            <th class="text-center col-2">Organizer</th>
+            <th class="text-center col-1">Date</th>
+            <th class="col-3">Description</th>
+            <th class="text-center col-1">Location</th>
+            <th class="text-center col-1"></th>
+            <th class="text-center col-1"></th>
+        </tr>
+
+        <% for(let count=0; count <EventList.length; count++) { %>
+            <tr class="d-flex">
+                <td class="text-center col-2"><%= EventList[count].name %></td>
+                <td class="text-center col-2"><%= EventList[count].organizer %></td>
+                <td class="text-center col-1"><%= EventList[count].date %></td>
+                <td class="col-3"><%= EventList[count].description %></td>
+                <td class="text-center col-1"><%= EventList[count].location %></td>
+                <td class="text-center col-1">
+                    <a href="/events/edit/<%= EventList[count]._id%>"
+                    class="btn btn-primary btn-sm">
+                        <i class="fas fa-pencil-alt"></i> Edit
+                    </a>
+                </td>
+                <td class="text-center col-1">
+                    <a href="/events/delete/<%= EventList[count]._id%>"
+                    class="btn btn-danger btn-sm"> 
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </a>
+                </td>
+            </tr>
+        <% } %>
+    <% } else { %>
+        <!-- Public view without Edit/Delete columns -->
+        <tr class="d-flex">
+            <th class="text-center col-2">Event Name</th>
+            <th class="text-center col-2">Organizer</th>
+            <th class="text-center col-2">Date</th>
+            <th class="col-4">Description</th>
+            <th class="text-center col-2">Location</th>
+        </tr>
+
+        <% for(let count=0; count <EventList.length; count++) { %>
+            <tr class="d-flex">
+                <td class="text-center col-2"><%= EventList[count].name %></td>
+                <td class="text-center col-2"><%= EventList[count].organizer %></td>
+                <td class="text-center col-2"><%= EventList[count].date %></td>
+                <td class="col-4"><%= EventList[count].description %></td>
+                <td class="text-center col-2"><%= EventList[count].location %></td>
+            </tr>
+        <% } %>
+    <% } %>
+</table>
         </div>
     </div>
 </main>
