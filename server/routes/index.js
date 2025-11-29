@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 let DB = require('../config/db');
-
+let User = require('../model/user').User;
 
 
 /* GET home page. */
@@ -123,5 +123,15 @@ router.post('/register', function(req,res,next){
         res.redirect("/events");
       });
     }
+  });
+});
+
+/* GET logout processing */
+router.get('/logout', function(req, res, next) {
+  req.logout(function(err) {
+    if (err) { 
+      return next(err); 
+    }
+    res.redirect('/');
   });
 });
