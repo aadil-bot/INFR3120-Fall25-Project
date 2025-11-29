@@ -6,3 +6,6 @@
     }
     window.addEventListener("load",start);
 })();
+// connect to mongo do and db
+
+connectDB();
