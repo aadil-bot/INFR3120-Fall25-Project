@@ -122,12 +122,12 @@ footer {
 
 footer h5 {
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 1;
   color: var(--primary-color);
 }
 
 footer p {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5;
 }
 
 footer a {
