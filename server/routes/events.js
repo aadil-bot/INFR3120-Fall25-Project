@@ -37,7 +37,7 @@ router.get('/',async(req,res,next)=>{
 });
 
 // GET route for displaying the Add Page --> Create Operation
-router.get('/add',async(req,res,next)=>{
+router.get('/add', requireAuth, async(req,res,next)=>{
     try
     {
         res.render('Events/add',{
@@ -58,7 +58,7 @@ router.get('/add',async(req,res,next)=>{
 })
 
 // POST route for processing the Add Page --> Create Operation
-router.post('/add',async(req,res,next)=>{
+router.post('/add',requireAuth,async(req,res,next)=>{
     try
     {
         let newEvent = eventModel({ 
@@ -86,7 +86,7 @@ router.post('/add',async(req,res,next)=>{
 })
 
 // GET route for displaying the Edit Page --> Update Operation
-router.get('/edit/:id',async(req,res,next)=>{
+router.get('/edit/:id',requireAuth,async(req,res,next)=>{
     try
     {
         const id = req.params.id;
@@ -106,7 +106,7 @@ router.get('/edit/:id',async(req,res,next)=>{
 })
 
 // POST route for processing the Edit Page --> Update Operation
-router.post('/edit/:id',async(req,res,next)=>{
+router.post('/edit/:id',requireAuth,async(req,res,next)=>{
     try{
         let id = req.params.id;
         let updateEvent = eventModel({ 
@@ -130,7 +130,7 @@ router.post('/edit/:id',async(req,res,next)=>{
 })
 
 // GET route to perform Delete Operation
-router.get('/delete/:id',async(req,res,next)=>{
+router.get('/delete/:id',requireAuth,async(req,res,next)=>{
     try{
         let id = req.params.id;
         // You must use 'eventModel' here
