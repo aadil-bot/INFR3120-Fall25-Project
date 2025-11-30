@@ -1,9 +1,16 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const LocalStrategy = require('passport-local').Strategy;
+
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GitHubStrategy = require('passport-github2').Strategy;
+const DiscordStrategy = require('passport-discord').Strategy;
+
 
 // configuring Databases
 let mongoose = require('mongoose');
@@ -65,6 +72,117 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+passport.use(new LocalStrategy({ usernameField: 'username' }, async (username, password, done) => {
+  try {
+    const user = await User.findOne({ username: username });
+    if (!user) return done(null, false, { message: 'Incorrect username or password' });
+    
+    
+    if (password !== user.password) {
+      return done(null, false, { message: 'Incorrect username or password' });
+    }
+    return done(null, user);
+  } catch (err) {
+    return done(err);
+  }
+}));
+
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.GOOGLE_CALLBACK_URL
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+        let user = await User.findOne({ providerId: profile.id });
+        if (user) {
+            return done(null, user);
+        } else {
+            let newUser = new User({
+                username: profile.displayName,
+                displayName: profile.displayName,
+                email: profile.emails ? profile.emails[0].value : "",
+                provider: 'google',
+                providerId: profile.id
+            });
+            await newUser.save();
+            return done(null, newUser);
+        }
+    } catch (err) {
+        return done(err, null);
+    }
+  }
+));
+
+passport.use(new GitHubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: process.env.GITHUB_CALLBACK_URL,
+    scope: [ 'user:email' ]
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+        let user = await User.findOne({ providerId: profile.id });
+        if (user) {
+            return done(null, user);
+        } else {
+            let newUser = new User({
+                username: profile.username, 
+                displayName: profile.displayName || profile.username,
+                email: profile.emails ? profile.emails[0].value : "",
+                provider: 'github',
+                providerId: profile.id
+            });
+            await newUser.save();
+            return done(null, newUser);
+        }
+    } catch (err) {
+        return done(err, null);
+    }
+  }
+));
+
+
+
+passport.use(new DiscordStrategy({
+    clientID: process.env.DISCORD_CLIENT_ID,
+    clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    callbackURL: process.env.DISCORD_CALLBACK_URL,
+    scope: ['identify', 'email']
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+        let user = await User.findOne({ providerId: profile.id });
+        if (user) {
+            return done(null, user);
+        } else {
+            let newUser = new User({
+                username: profile.username,
+                displayName: profile.global_name || profile.username,
+                email: profile.email,
+                provider: 'discord',
+                providerId: profile.id
+            });
+            await newUser.save();
+            return done(null, newUser);
+        }
+    } catch (err) {
+        return done(err, null);
+    }
+  }
+));
+
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser(async (id, done) => {
+  try {
+    const u = await User.findById(id);
+    done(null, u);
+  } catch (err) {
+    done(err);
+  }
+});
 
 // Routes
 app.use('/', indexRouter);

@@ -125,6 +125,36 @@ router.post('/register', function(req,res,next){
   });
 });
 
+
+/* --- GOOGLE AUTH ROUTE --- */
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/events');
+  });
+
+/* GITHUB AUTH ROUTEa */
+router.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
+
+router.get('/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/events');
+  });
+
+
+
+/* DISCORD AUTH ROUTE */
+router.get('/auth/discord', passport.authenticate('discord'));
+
+router.get('/auth/discord/callback', 
+  passport.authenticate('discord', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/events'); 
+  }
+);
 /* GET logout processing */
 router.get('/logout', function(req, res, next) {
   req.logout(function(err) {
