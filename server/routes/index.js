@@ -18,7 +18,6 @@ router.get('/home', function(req, res, next) {
 });
 
 
-
 /* GET products page. */
 router.get('/planner', function(req, res, next) {
   res.render('events', { title: 'Planner',displayName: req.user?req.user.displayName:"" });
