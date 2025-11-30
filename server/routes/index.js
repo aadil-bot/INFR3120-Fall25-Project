@@ -146,6 +146,16 @@ router.get('/auth/github/callback',
   });
 
 
+
+/* DISCORD AUTH ROUTE */
+router.get('/auth/discord', passport.authenticate('discord'));
+
+router.get('/auth/discord/callback', 
+  passport.authenticate('discord', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/events'); 
+  }
+);
 /* GET logout processing */
 router.get('/logout', function(req, res, next) {
   req.logout(function(err) {

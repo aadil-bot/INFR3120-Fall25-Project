@@ -8,6 +8,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
+const DiscordStrategy = require('passport-discord').Strategy;
 
 
 // configuring Databases
@@ -130,6 +131,35 @@ passport.use(new GitHubStrategy({
                 displayName: profile.displayName || profile.username,
                 email: profile.emails ? profile.emails[0].value : "",
                 provider: 'github',
+                providerId: profile.id
+            });
+            await newUser.save();
+            return done(null, newUser);
+        }
+    } catch (err) {
+        return done(err, null);
+    }
+  }
+));
+
+
+passport.use(new DiscordStrategy({
+    clientID: process.env.DISCORD_CLIENT_ID,
+    clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    callbackURL: process.env.DISCORD_CALLBACK_URL,
+    scope: ['identify', 'email']
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+        let user = await User.findOne({ providerId: profile.id });
+        if (user) {
+            return done(null, user);
+        } else {
+            let newUser = new User({
+                username: profile.username,
+                displayName: profile.global_name || profile.username,
+                email: profile.email,
+                provider: 'discord',
                 providerId: profile.id
             });
             await newUser.save();
