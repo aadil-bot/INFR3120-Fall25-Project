@@ -1,53 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - LogBook</title>
-    <link rel='stylesheet' href="/Content/app.css" />
-    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.min.css">
-    <script src="/jquery/dist/jquery.min.js"></script>
-    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" class="astro-vvvwv3sm"></script>
-  </head>
-  <body>
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">
-      <img src="/Asset/images/Logo.webp" alt="Logo" height="100"> LogBook
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/home">
-            <i class="fa-solid fa-lg fa-house"></i> Home
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/events">
-            <i class="fa-brands fa-lg fa-elementor"></i> Planner
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/login">
-            <i class="fas fa-lg fa-sign-in-alt"></i> Login
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/register">
-            <i class="fas fa-lg fa-user-plus"></i> Register
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<%- include ../partials/header.ejs %>
+<%- include ../partials/main_nav.ejs %>
 
 <!-- Main Content -->
 <main class="container" style="min-height: 80vh;">

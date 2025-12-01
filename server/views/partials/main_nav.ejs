@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Event Planner</a>
+    <a class="navbar-brand" href="#">
+      <img src="/Asset/images/Logo.webp" alt="Logo" height="100"> LogBook
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -61,6 +63,17 @@
             <% } else { %>
               <a class="nav-link" href="/login">
                 <i class="fas fa-lg fa-sign-in-alt"></i> Login
+              </a>
+            <% } %>
+          </li>
+          <li class="nav-item">
+            <% if(title == "Login") { %>
+              <a class="nav-link active" aria-current="page" href="/register">
+                <i class="fas fa-lg fa-sign-in-alt"></i> Register
+              </a>
+            <% } else { %>
+              <a class="nav-link" href="/register">
+                <i class="fas fa-lg fa-sign-in-alt"></i> Register
               </a>
             <% } %>
           </li>
