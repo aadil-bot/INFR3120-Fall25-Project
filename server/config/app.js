@@ -73,7 +73,7 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-passport.use(new LocalStrategy({ usernameField: 'username' }, async (username, password, done) => {
+/*passport.use(new LocalStrategy({ usernameField: 'username' }, async (username, password, done) => {
   try {
     const user = await User.findOne({ username: username });
     if (!user) return done(null, false, { message: 'Incorrect username or password' });
@@ -87,6 +87,7 @@ passport.use(new LocalStrategy({ usernameField: 'username' }, async (username, p
     return done(err);
   }
 }));
+*/
 
 
 passport.use(new GoogleStrategy({
