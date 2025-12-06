@@ -1,51 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - LogBook</title>
-    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/Content/app.css">
-  </head>
-  <body>
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">
-      <img src="/Asset/images/Logo.webp" alt="Logo" height="100"> LogBook
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/home">
-            <i class="fa-solid fa-lg fa-house"></i> Home
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/events">
-            <i class="fa-brands fa-lg fa-elementor"></i> Planner
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login">
-            <i class="fas fa-lg fa-sign-in-alt"></i> Login
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/register">
-            <i class="fas fa-lg fa-user-plus"></i> Register
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
+<%- include ../partials/header.ejs %>
+<%- include ../partials/main_nav.ejs %>
 <!-- Main Content -->
 <main class="container" style="min-height: 80vh;">
   <div class="row justify-content-center mt-5 mb-5">
@@ -145,7 +101,19 @@
               </a>
             </div>
           </form>
-          
+          <div class="text-center mb-2">Or login with:</div>
+          <div class="d-grid gap-2">
+            <a href="/auth/google" class="btn btn-danger">
+                <i class="fab fa-google"></i> Login with Google
+            </a>
+            <a href="/auth/github" class="btn btn-dark">
+                <i class="fab fa-github"></i> Login with GitHub
+            </a>
+            <a href="/auth/discord" class="btn btn-primary">
+                <i class="fab fa-discord"></i> Login with Discord
+            </a>
+          </div>
+
           <!-- Login Link -->
           <hr>
           <div class="text-center">
@@ -157,19 +125,6 @@
             </p>
           </div>
         </div>
-      </div>
-      
-      <!-- Information Box -->
-      <div class="alert alert-info mt-3" role="alert">
-        <h5 class="alert-heading">
-          <i class="fas fa-info-circle"></i> How it works:
-        </h5>
-        <ol class="mb-0">
-          <li>Fill out the registration form with your information</li>
-          <li>Click "Create Account" to register</li>
-          <li>You'll be automatically logged in</li>
-          <li>Use your username and password to login next time</li>
-        </ol>
       </div>
     </div>
   </div>

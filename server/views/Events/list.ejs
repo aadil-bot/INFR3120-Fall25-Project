@@ -23,7 +23,7 @@
             <th class="text-center col-2">Event Name</th>
             <th class="text-center col-2">Organizer</th>
             <th class="text-center col-1">Date</th>
-            <th class="col-3">Description</th>
+            <th class="col-4">Description</th>
             <th class="text-center col-1">Location</th>
             <th class="text-center col-1"></th>
             <th class="text-center col-1"></th>
@@ -34,7 +34,7 @@
                 <td class="text-center col-2"><%= EventList[count].name %></td>
                 <td class="text-center col-2"><%= EventList[count].organizer %></td>
                 <td class="text-center col-1"><%= EventList[count].date %></td>
-                <td class="col-3"><%= EventList[count].description %></td>
+                <td class="col-4"><%= EventList[count].description %></td>
                 <td class="text-center col-1"><%= EventList[count].location %></td>
                 <td class="text-center col-1">
                     <a href="/events/edit/<%= EventList[count]._id%>"

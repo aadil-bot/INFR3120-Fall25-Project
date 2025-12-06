@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - LogBook</title>
+    <link rel='stylesheet' href="/Content/app.css" />
     <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/Content/app.css">
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" class="astro-vvvwv3sm"></script>
   </head>
   <body>
+
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -99,6 +105,13 @@
                 autocomplete="current-password">
             </div>
             
+            <!--forgot password-->
+            <div class="text-end mb-3">
+            <a href="/forgot" class="text-decoration-none">
+              Forgot Password? </a>
+              </div>
+
+            
             <!-- Submit Button -->
             <div class="d-grid gap-2 mb-3">
               <button type="submit" class="btn btn-success btn-lg">
@@ -154,5 +167,77 @@
 <script src="/jquery/dist/jquery.min.js"></script>
 <script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/Script/app.js"></script>
+
+<div class="modal fade" id="resetModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="/forgot" class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Reset Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <label class="form-label fw-bold">Enter your account email:</label>
+        <input 
+          type="email" 
+          name="email" 
+          class="form-control" 
+          placeholder="your.email@example.com" 
+          required
+        >
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Send Reset Link</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  const forgotLink = document.querySelector('a[href="/forgot"]');
+  forgotLink.addEventListener("click", function (e) {
+    e.preventDefault();
+    const modal = new bootstrap.Modal(document.getElementById('resetModal'));
+    modal.show();
+  });
+</script>
+<% if (typeof token !== 'undefined') { %>
+<!-- Password Reset Modal -->
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="/reset/<%= token %>" class="modal-content">
+      <div class="modal-header bg-warning text-dark">
+        <h5 class="modal-title">Set New Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <label class="form-label fw-bold">Enter your new password:</label>
+        <input 
+          type="password" 
+          name="password" 
+          class="form-control" 
+          placeholder="New password" 
+          required
+          minlength="6">
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-warning">Reset Password</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+<% } %>
+<script>
+  <% if (typeof showResetForm !== 'undefined' && showResetForm) { %>
+    const modal2 = new bootstrap.Modal(document.getElementById('resetPasswordModal'));
+    modal2.show();
+  <% } %>
+</script>
+
 </body>
 </html>
+
