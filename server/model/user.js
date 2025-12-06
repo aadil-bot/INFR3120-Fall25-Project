@@ -12,6 +12,19 @@ let User = mongoose.Schema({
         required:'Username is required'
     },
 
+    profilePic:
+    {
+        type: String,
+        default: "/images/defaultpfp.png"
+    },
+
+    // NEW FIELD — stores resized/cropped version
+    profilePicSmall:
+    {
+        type: String,
+        default: "/images/defaultpfp.png"
+    },
+
     resetToken:
     {
         type: String,
@@ -53,7 +66,7 @@ let User = mongoose.Schema({
     collection:"user"
 });
 
-
 let options = ({MissingPasswordError:'Wrong/Missing Password'});
 User.plugin(passportLocalMongoose,options);
+
 module.exports.User = mongoose.model('User',User);
