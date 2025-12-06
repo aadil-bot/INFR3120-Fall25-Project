@@ -3,10 +3,18 @@ var router = express.Router();
 const passport = require('passport');
 let DB = require('../config/db');
 let User = require('../model/user').User;
+
+const multer = require('multer');
 const path = require('path');
+const sharp = require('sharp');  // <<< ADDED FOR IMAGE PROCESSING
+
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const util = require('util');
+
+// UPLOAD MIDDLEWARE (ADDED)
+const upload = require('../config/upload');
+
 
 /* -------------------- PUBLIC PAGES -------------------- */
 
@@ -60,7 +68,6 @@ router.post('/forgot', async (req, res) => {
   user.resetTokenExpiry = Date.now() + 3600000; 
   await user.save();
 
-  // base URL for hosting
   const baseUrl = process.env.BASE_URL || "http://localhost:5000";
   const link = `${baseUrl}/reset/${token}`;
 
@@ -68,7 +75,7 @@ router.post('/forgot', async (req, res) => {
     service: 'gmail',
     auth: {
       user: "logbook453@gmail.com",
-      pass: "uvkpszixmfzmvixp"  // app password
+      pass: "uvkpszixmfzmvixp"  
     }
   });
 
@@ -221,6 +228,45 @@ router.get('/logout', function(req, res, next) {
   });
 });
 
+
+/* -------------------- PROFILE (NEW) -------------------- */
+
+// GET Profile Page
+router.get('/profile', (req, res) => {
+  if (!req.user) return res.redirect('/login');
+
+  res.render('auth/profile', {
+    title: "Your Profile",
+    user: req.user,
+    displayName: req.user.displayName
+  });
+});
+
+// POST Upload Profile Picture
+router.post('/uploadProfile', upload.single('profilePic'), async (req, res) => {
+
+  try {
+    if (!req.file) return res.status(400).send("No file uploaded");
+
+    const smallPath = `public/uploads/profile/resized-${req.file.filename}`;
+
+    // Resize
+    await sharp(req.file.path)
+      .resize(300, 300)
+      .toFile(smallPath);
+
+    // Save to DB
+    await User.findByIdAndUpdate(req.user._id, {
+      profilePic: `/uploads/profile/${req.file.filename}`,
+      profilePicSmall: `/uploads/profile/resized-${req.file.filename}`
+    });
+
+    return res.redirect('/profile');
+  } catch (err) {
+    console.log("Upload Error:", err);
+    return res.status(500).send("Error uploading image");
+  }
+});
 
 /* -------------------- EXPORT -------------------- */
 module.exports = router;
