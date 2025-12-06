@@ -1,0 +1,52 @@
+<!-- HEADER (includes CSS, Bootstrap, colors, etc.) -->
+<%- include('../partials/header.ejs') %>
+
+<!-- NAVBAR -->
+<%- include('../partials/main_nav.ejs') %>
+
+<div class="profile-container">
+
+    <h1>Your Profile</h1>
+    <h3>Welcome, <%= displayName %></h3>
+
+    <!-- CURRENT PROFILE PIC -->
+    <img 
+        src="<%= user.profilePicSmall || '/images/defaultpfp.png' %>" 
+        alt="Profile Picture" 
+        class="profile-pic">
+
+    <form action="/uploadProfile" method="POST" enctype="multipart/form-data">
+
+        <label><strong>Change Profile Picture</strong></label><br>
+
+        <input 
+            type="file" 
+            name="profilePic" 
+            id="imageInput" 
+            accept="image/*" 
+            required>
+
+        <!-- PREVIEW -->
+        <img id="preview" class="preview">
+
+        <br>
+        <button type="submit">Upload</button>
+    </form>
+
+</div>
+
+<script>
+    // SHOW PREVIEW BEFORE UPLOAD
+    document.getElementById("imageInput").addEventListener("change", function() {
+        const file = this.files[0];
+        const preview = document.getElementById("preview");
+
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = "block";
+        }
+    });
+</script>
+
+<!-- FOOTER -->
+<%- include('../partials/footer.ejs') %>

@@ -1,84 +1,89 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="/Asset/images/Logo.webp" alt="Logo" height="100"> LogBook
-    </a>
+    <a class="navbar-brand" href="#">Event Planner</a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+
   </div>
 </nav>
-        <!-- Home Link - Always Visible -->
-        <li class="nav-item">
-          <% if(title == "Home") { %>
-            <a class="nav-link active" aria-current="page" href="/home">
-              <i class="fa-solid fa-lg fa-house"></i> Home
-            </a>
-          <% } else { %>
-            <a class="nav-link" href="/home">
-              <i class="fa-solid fa-lg fa-house"></i> Home
-            </a>
-          <% } %>
-        </li>
-        
-        <!-- Planner Link - Always Visible -->
-        <li class="nav-item">
-          <% if(title == "Event Planner") { %>
-            <a class="nav-link active" aria-current="page" href="/events">
-              <i class="fa-brands fa-lg fa-elementor"></i> Planner
-            </a>
-          <% } else { %>
-            <a class="nav-link" href="/events">
-              <i class="fa-brands fa-lg fa-elementor"></i> Planner
-            </a>
-          <% } %>
-        </li>
-        
-        <!-- 
-          AUTHENTICATION NAVIGATION LOGIC:
-          - If user is NOT logged in: Show Login and Register links
-          - If user IS logged in: Show Welcome message and Logout link
-        -->
-        
-        <% if(typeof displayName == 'string' && displayName) { %>
-          <!-- USER IS LOGGED IN - Show Welcome and Logout -->
-          <li class="nav-item">
-            <span class="navbar-text text-light me-3">
-              <i class="fas fa-lg fa-user"></i> Welcome, <%= displayName %>
-            </span>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">
-              <i class="fas fa-lg fa-sign-out-alt"></i> Logout
-            </a>
-          </li>
-        <% } else { %>
-          <!-- USER IS NOT LOGGED IN - Show Login Link Only -->
-          <li class="nav-item">
-            <% if(title == "Login") { %>
-              <a class="nav-link active" aria-current="page" href="/login">
-                <i class="fas fa-lg fa-sign-in-alt"></i> Login
-              </a>
-            <% } else { %>
-              <a class="nav-link" href="/login">
-                <i class="fas fa-lg fa-sign-in-alt"></i> Login
-              </a>
-            <% } %>
-          </li>
-          <li class="nav-item">
-            <% if(title == "Login") { %>
-              <a class="nav-link active" aria-current="page" href="/register">
-                <i class="fas fa-lg fa-sign-in-alt"></i> Register
-              </a>
-            <% } else { %>
-              <a class="nav-link" href="/register">
-                <i class="fas fa-lg fa-sign-in-alt"></i> Register
-              </a>
-            <% } %>
-          </li>
-        <% } %>
-      </ul>
-    </div>
-  </div>
+
+<!-- NAV LINKS -->
+<li class="nav-item">
+  <% if(title == "Home") { %>
+    <a class="nav-link active" aria-current="page" href="/home">
+      <i class="fa-solid fa-lg fa-house"></i> Home
+    </a>
+  <% } else { %>
+    <a class="nav-link" href="/home">
+      <i class="fa-solid fa-lg fa-house"></i> Home
+    </a>
+  <% } %>
+</li>
+
+<li class="nav-item">
+  <% if(title == "Event Planner") { %>
+    <a class="nav-link active" aria-current="page" href="/events">
+      <i class="fa-brands fa-lg fa-elementor"></i> Planner
+    </a>
+  <% } else { %>
+    <a class="nav-link" href="/events">
+      <i class="fa-brands fa-lg fa-elementor"></i> Planner
+    </a>
+  <% } %>
+</li>
+
+<!-- AUTH LOGIC -->
+<% if(typeof displayName == 'string' && displayName) { %>
+
+  <!-- NEW: PROFILE PAGE LINK -->
+  <li class="nav-item">
+    <a class="nav-link" href="/profile">
+      <i class="fas fa-lg fa-user-circle"></i> Profile
+    </a>
+  </li>
+
+  <!-- NEW: PROFILE PICTURE THUMBNAIL -->
+  <li class="nav-item d-flex align-items-center">
+    <img 
+      src="<%= (typeof user !== 'undefined' && user && user.profilePicSmall) ? user.profilePicSmall : '/images/defaultpfp.png' %>" 
+      style="width:35px; height:35px; border-radius:50%; object-fit:cover; margin-right:10px;"
+      alt="Profile Picture">
+  </li>
+
+  <!-- WELCOME MESSAGE -->
+  <li class="nav-item">
+    <span class="navbar-text text-light me-3">
+      <i class="fas fa-lg fa-user"></i> Welcome, <%= displayName %>
+    </span>
+  </li>
+
+  <!-- LOGOUT -->
+  <li class="nav-item">
+    <a class="nav-link" href="/logout">
+      <i class="fas fa-lg fa-sign-out-alt"></i> Logout
+    </a>
+  </li>
+
+<% } else { %>
+
+  <!-- NOT LOGGED IN: SHOW LOGIN -->
+  <li class="nav-item">
+    <% if(title == "Login") { %>
+      <a class="nav-link active" aria-current="page" href="/login">
+        <i class="fas fa-lg fa-sign-in-alt"></i> Login
+      </a>
+    <% } else { %>
+      <a class="nav-link" href="/login">
+        <i class="fas fa-lg fa-sign-in-alt"></i> Login
+      </a>
+    <% } %>
+  </li>
+
+<% } %>
+
+</ul>
+</div>
+</div>
 </nav>
