@@ -9,11 +9,9 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
-
-
 const DiscordStrategy = require('passport-discord').Strategy;
 
-//setting up discord  authentication
+
 // configuring Databases
 let mongoose = require('mongoose');
 let DB = require('./db');
@@ -75,26 +73,25 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-/*passport.use(new LocalStrategy({ usernameField: 'username' }, async (username, password, done) => {
-  try {
-    const user = await User.findOne({ username: username });
-    if (!user) return done(null, false, { message: 'Incorrect username or password' });
+// passport.use(new LocalStrategy({ usernameField: 'username' }, async (username, password, done) => {
+//   try {
+//     const user = await User.findOne({ username: username });
+//     if (!user) return done(null, false, { message: 'Incorrect username or password' });
     
     
-    if (password !== user.password) {
-      return done(null, false, { message: 'Incorrect username or password' });
-    }
-    return done(null, user);
-  } catch (err) {
-    return done(err);
-  }
-}));
-*/
+//     if (password !== user.password) {
+//       return done(null, false, { message: 'Incorrect username or password' });
+//     }
+//     return done(null, user);
+//   } catch (err) {
+//     return done(err);
+//   }
+// }));
 
-/*
+
 passport.use(new GoogleStrategy({
-    clientID: ,
-    clientSecret: process.env.,
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: process.env.GOOGLE_CALLBACK_URL
   },
   async (accessToken, refreshToken, profile, done) => {
@@ -119,8 +116,6 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-*/
-/*
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
@@ -149,9 +144,8 @@ passport.use(new GitHubStrategy({
   }
 ));
 
-*/
 
-/*
+
 passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
@@ -179,7 +173,7 @@ passport.use(new DiscordStrategy({
     }
   }
 ));
-*/
+
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser(async (id, done) => {
   try {
